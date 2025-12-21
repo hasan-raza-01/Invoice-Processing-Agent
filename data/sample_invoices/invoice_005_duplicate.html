@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice INV-2025-001-DUPLICATE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffe6e6;
+        }
+
+        .invoice-container {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            border: 3px solid #ff0000;
+            position: relative;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            color: rgba(255, 0, 0, 0.1);
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .duplicate-warning {
+            background: #ff0000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0.5;
+            }
+        }
+
+        .header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="watermark">DUPLICATE</div>
+        <div class="content">
+            <div class="duplicate-warning">
+                WARNING: POTENTIAL DUPLICATE INVOICE<br>
+                <span style="font-size: 14px;">This invoice may have been submitted previously</span>
+            </div>
+
+            <div class="header">
+                <div class="company-name">ACME CORPORATION</div>
+                <div>1234 Industrial Parkway, Tech Valley, CA 94025</div>
+                <div>Tax ID: TAX-ACME-12345</div>
+            </div>
+
+            <div style="margin: 30px 0;">
+                <strong>Invoice Number:</strong> INV-2025-001<br>
+                <strong>Invoice Date:</strong> December 15, 2025<br>
+                <strong>Due Date:</strong> January 15, 2026<br>
+                <strong>PO Reference:</strong> PO-12345<br>
+                <strong style="color: red;">SUBMISSION #2 (Duplicate)</strong>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="text-align: center;">Qty</th>
+                        <th style="text-align: right;">Unit Price</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Industrial Widget Model X-2000</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: right;">$500.00</td>
+                        <td style="text-align: right;">$5,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total">
+                TOTAL: $5,000.00 USD
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; margin-top: 30px; border: 2px solid #ffc107;">
+                <strong>DUPLICATE DETECTION NOTICE:</strong><br>
+                This invoice appears to be identical to a previously submitted invoice.<br>
+                Please verify this is not a duplicate submission before processing.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

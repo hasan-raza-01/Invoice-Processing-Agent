@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice INV-2025-002</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .invoice-container {
+            background: white;
+            padding: 50px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            margin: -50px -50px 30px -50px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .invoice-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: -50px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-box {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .highlight-row {
+            background-color: #fff3cd !important;
+            border-left: 4px solid #ffc107;
+        }
+
+        .total-section {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        .grand-total {
+            border-top: 3px solid #3498db;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .alert-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="company-name">BETA SOLUTIONS LLC</div>
+            <div style="font-size: 14px;">9876 Innovation Drive | Austin, TX 78701 | USA</div>
+            <div style="font-size: 14px;">Tax ID: TAX-BETA-67890 | Phone: +1 (555) 987-6543</div>
+            <div class="invoice-title">INVOICE</div>
+        </div>
+
+        <!-- Invoice Info Grid -->
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="label">Bill To</div>
+                <div class="value">
+                    Your Company Inc.<br>
+                    5678 Business Avenue<br>
+                    Suite 200<br>
+                    San Francisco, CA 94102
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="label">Invoice Details</div>
+                <div class="value">
+                    <strong>Invoice #:</strong> INV-2025-002<br>
+                    <strong>Date:</strong> December 16, 2025<br>
+                    <strong>Due Date:</strong> January 16, 2026<br>
+                    <strong>PO Reference:</strong> PO-12345
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Box -->
+        <div class="alert-box">
+            <strong>WARNING:</strong> Additional charges for expedited service and premium support package included.
+        </div>
+
+        <!-- Line Items -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="text-align: center; width: 100px;">Qty</th>
+                    <th style="text-align: right; width: 120px;">Unit Price</th>
+                    <th style="text-align: right; width: 120px;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>Professional Services - Cloud Migration</strong><br>
+                        <small>Project ID: PRJ-2025-CM-001</small><br>
+                        <small>Complete cloud infrastructure migration with 24/7 support</small>
+                    </td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: right;">$5,000.00</td>
+                    <td style="text-align: right;">$5,000.00</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>
+                        <strong>Expedited Service Fee</strong><br>
+                        <small>Rush delivery - Project completed 2 weeks ahead of schedule</small>
+                    </td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: right;">$1,500.00</td>
+                    <td style="text-align: right;">$1,500.00</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>
+                        <strong>Premium Support Package (3 months)</strong><br>
+                        <small>Includes 24/7 emergency support and dedicated account manager</small>
+                    </td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: right;">$1,000.00</td>
+                    <td style="text-align: right;">$1,000.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Totals -->
+        <div class="total-section">
+            <div class="total-line">
+                <span>Subtotal:</span>
+                <span>$7,500.00</span>
+            </div>
+            <div class="total-line">
+                <span>Tax (0%):</span>
+                <span>$0.00</span>
+            </div>
+            <div class="total-line">
+                <span>Discount:</span>
+                <span>$0.00</span>
+            </div>
+            <div class="total-line grand-total">
+                <span>TOTAL DUE:</span>
+                <span>$7,500.00 USD</span>
+            </div>
+        </div>
+
+        <!-- Payment Terms -->
+        <div style="margin-top: 30px; padding: 20px; background-color: #ecf0f1; border-radius: 8px;">
+            <strong>Payment Information:</strong><br>
+            <div style="margin-top: 10px; line-height: 1.8;">
+                <strong>Terms:</strong> Net 30 Days<br>
+                <strong>Bank:</strong> Austin Regional Bank<br>
+                <strong>Account:</strong> 9876543210<br>
+                <strong>Routing:</strong> 123456789<br>
+                <strong>SWIFT:</strong> ARBKUS44XXX
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Questions about this invoice? Contact: accounting@betasolutions.com<br>
+            Beta Solutions LLC | www.betasolutions.com<br>
+            <small>This invoice is digitally generated and legally valid without signature</small>
+        </div>
+    </div>
+</body>
+
+</html>

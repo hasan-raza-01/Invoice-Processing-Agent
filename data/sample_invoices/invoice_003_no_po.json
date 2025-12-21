@@ -1,0 +1,32 @@
+{
+  "invoice_id": "INV-2025-003",
+  "vendor_name": "Gamma Enterprises",
+  "vendor_tax_id": "TAX-GAMMA-11223",
+  "invoice_date": "2025-12-17",
+  "due_date": "2025-12-31",
+  "amount": 5000.0,
+  "currency": "USD",
+  "line_items": [
+    {
+      "desc": "Emergency Equipment Repair Service",
+      "qty": 8,
+      "unit_price": 375.0,
+      "total": 3000.0
+    },
+    {
+      "desc": "Replacement Parts - Priority Delivery",
+      "qty": 1,
+      "unit_price": 1200.0,
+      "total": 1200.0
+    },
+    {
+      "desc": "Weekend Emergency Service Premium",
+      "qty": 1,
+      "unit_price": 800.0,
+      "total": 800.0
+    }
+  ],
+  "attachments": [
+    "data/sample_invoices/invoice_003_no_po.jpg"
+  ]
+}

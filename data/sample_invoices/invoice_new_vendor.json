@@ -1,0 +1,20 @@
+{
+    "invoice_id": "INV-2024-003",
+    "vendor_name": "TechSupplies Inc",
+    "vendor_tax_id": "PAN54321WXYZ",
+    "invoice_date": "2024-01-17",
+    "due_date": "2024-02-17",
+    "amount": 1500.00,
+    "currency": "USD",
+    "line_items": [
+        {
+            "desc": "Software Licenses",
+            "qty": 3,
+            "unit_price": 500.00,
+            "total": 1500.00
+        }
+    ],
+    "attachments": [
+        "data/sample_invoices/invoice_003.pdf"
+    ]
+}

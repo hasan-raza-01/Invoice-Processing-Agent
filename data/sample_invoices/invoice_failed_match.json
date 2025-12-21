@@ -1,0 +1,32 @@
+{
+    "invoice_id": "INV-2024-002",
+    "vendor_name": "ACME Corporation",
+    "vendor_tax_id": "PAN12345ABCD",
+    "invoice_date": "2024-01-16",
+    "due_date": "2024-02-16",
+    "amount": 2500.00,
+    "currency": "USD",
+    "line_items": [
+        {
+            "desc": "Product A - Widget Assembly",
+            "qty": 12,
+            "unit_price": 100.00,
+            "total": 1200.00
+        },
+        {
+            "desc": "Product B - Component Kit",
+            "qty": 6,
+            "unit_price": 200.00,
+            "total": 1200.00
+        },
+        {
+            "desc": "Additional Service Fee",
+            "qty": 1,
+            "unit_price": 100.00,
+            "total": 100.00
+        }
+    ],
+    "attachments": [
+        "data/sample_invoices/invoice_002.pdf"
+    ]
+}
