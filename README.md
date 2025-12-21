@@ -14,7 +14,6 @@ An intelligent invoice processing system built with **LangGraph**, featuring **H
 - 💾 **Checkpoint Persistence**: SQLite-based state storage with full audit logging
 - 🌐 **FastAPI Backend**: Async REST API for workflow management
 - 📊 **Streamlit Dashboard**: Interactive UI for human review
-- 🐳 **Docker Ready**: Containerized deployment with docker-compose
 
 ---
 
@@ -90,7 +89,6 @@ An intelligent invoice processing system built with **LangGraph**, featuring **H
 - **Checkpointing**: LangGraph SqliteSaver
 - **LLMs**: Google Gemini + Groq (fallback)
 - **OCR**: Tesseract
-- **Containerization**: Docker + Docker Compose
 
 ---
 
@@ -132,8 +130,6 @@ Invoice-Processing-Agent/
 ├── scripts/
 │   ├── setup_db.py                   # Database initialization
 │   └── run_demo.py                   # Demo script
-├── Dockerfile                        # Container definition
-├── docker-compose.yml                # Multi-service orchestration
 ├── pyproject.toml                    # Dependencies (uv)
 └── README.md                         # This file
 ```
@@ -146,7 +142,6 @@ Invoice-Processing-Agent/
 
 - Python 3.11+
 - `uv` package manager ([astral.sh/uv](https://astral.sh/uv))
-- Docker (optional, for containerized deployment)
 
 ### **Installation**
 
@@ -186,18 +181,7 @@ Invoice-Processing-Agent/
 ---
 
 ## 💻 **Usage**
-
-### **Option 1: Run with Docker (Recommended)**
-
-```bash
-docker-compose up --build
-```
-
-- **API**: http://localhost:8000
-- **Dashboard**: http://localhost:8501
-- **API Docs**: http://localhost:8000/docs
-
-### **Option 2: Run Locally**
+### **Run Locally**
 
 **Terminal 1 - API Server**:
 ```bash
@@ -294,28 +278,6 @@ The Bigtool system dynamically selects tools from pools:
 - `checkpoints`: Workflow state snapshots
 - `human_review_queue`: Pending HITL items
 - `audit_logs`: Complete workflow audit trail
-
----
-
-## 🎬 **Demo Video Script**
-
-See [demo_video_script.md](demo_video_script.md) for the 5-minute demo walkthrough.
-
----
-
-## 📝 **License**
-
-MIT License
-
----
-
-## 👤 **Author**
-
-**Hasan Raza**
-- Email: hasan.raza12003@gmail.com
-- GitHub: [Your GitHub]
-
----
 
 ## 🙏 **Acknowledgments**
 
