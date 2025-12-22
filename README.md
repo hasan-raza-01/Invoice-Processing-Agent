@@ -181,7 +181,18 @@ Invoice-Processing-Agent/
 ---
 
 ## 💻 **Usage**
-### **Run Locally**
+
+### **Option 1: Run with Docker (Recommended)**
+
+```bash
+docker-compose up --build
+```
+
+- **API**: http://localhost:8000
+- **Dashboard**: http://localhost:8501
+- **API Docs**: http://localhost:8000/docs
+
+### **Option 2: Run Locally**
 
 **Terminal 1 - API Server**:
 ```bash
