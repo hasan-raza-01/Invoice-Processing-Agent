@@ -210,9 +210,6 @@ __marimo__/
 basic-workflow-guide.md
 LangGraph Invoice Processing Task with HITL– Coding Task.txt
 demo_video_script.md
-docker-compose.yml
-dockerfile
-.dockerignore
 template.py
 test_output.txt
 test_warnings_output.txt
