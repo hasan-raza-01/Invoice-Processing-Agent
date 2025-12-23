@@ -180,8 +180,10 @@ Invoice-Processing-Agent/
    python scripts/setup_db.py
    ```
 
+6. **If want to use OCR(tesseract), install it first**:
+   - Official Installation Documentation Page for all supported platforms: https://tesseract-ocr.github.io/tessdoc/Installation.html
+   - For Windows(from Official Installation Documentation Page itself): https://github.com/UB-Mannheim/tesseract/wiki
 ---
-
 ## 💻 **Usage**
 
 ### **Option 1: Run with Docker (Recommended)**
