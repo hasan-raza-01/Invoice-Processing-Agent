@@ -215,3 +215,5 @@ test_output.txt
 test_warnings_output.txt
 invoice_agent.db
 data/stored_invoices
+data/invoice_agent.db
+docker_test.sh

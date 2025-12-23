@@ -90,6 +90,9 @@ async def resume_workflow(checkpoint_id: str, human_decision: Dict[str, Any]) ->
     """
     Resume workflow after human review
     
+    FIXED: Instead of using langgraph_app.ainvoke() which hangs,
+    we manually execute the remaining workflow nodes sequentially.
+    
     Args:
         checkpoint_id: Checkpoint identifier
         human_decision: Human decision data (decision, reviewer_id, notes)
@@ -99,42 +102,96 @@ async def resume_workflow(checkpoint_id: str, human_decision: Dict[str, Any]) ->
     """
     logger.info(f"[RESUME] Resuming workflow from checkpoint: {checkpoint_id}")
     
-    # Load checkpoint state
-    checkpoint_store = CheckpointStore()
-    state = checkpoint_store.load_checkpoint(checkpoint_id)
-    
-    if not state:
-        raise ValueError(f"Checkpoint not found: {checkpoint_id}")
-    
-    # Inject human decision
-    state["human_decision"] = human_decision["decision"]
-    state["reviewer_id"] = human_decision.get("reviewer_id", "unknown")
-    state["status"] = "RUNNING"
-    state["logs"].append(f"[RESUME] Human decision: {human_decision['decision']}")
-    
-    # Update checkpoint in DB
-    checkpoint_store.update_checkpoint_decision(
-        checkpoint_id=checkpoint_id,
-        decision=human_decision["decision"],
-        reviewer_id=human_decision.get("reviewer_id", "unknown")
-    )
-    
-    # Update review queue
-    status = "APPROVED" if human_decision["decision"] == "ACCEPT" else "REJECTED"
-    checkpoint_store.update_review_status(checkpoint_id, status)
-    
-    # Resume workflow
-    config = {"configurable": {"thread_id": state["workflow_id"]}}
-    result = await langgraph_app.ainvoke(state, config)
-    
-    checkpoint_store.close()
-    
-    logger.info(f"[OK] Workflow resumed - Final Status: {result['status']}")
-    
-    return {
-        "workflow_id": result["workflow_id"],
-        "status": result["status"],
-        "current_stage": result["current_stage"],
-        "next_stage": result.get("next_stage"),
-        "logs": result.get("logs", [])
-    }
+    checkpoint_store = None
+    try:
+        # Load checkpoint state
+        checkpoint_store = CheckpointStore()
+        state = checkpoint_store.load_checkpoint(checkpoint_id)
+        
+        if not state:
+            raise ValueError(f"Checkpoint not found: {checkpoint_id}")
+        
+        # Inject human decision
+        state["human_decision"] = human_decision["decision"]
+        state["reviewer_id"] = human_decision.get("reviewer_id", "unknown")
+        state["status"] = "RUNNING"
+        state["logs"].append(f"[RESUME] Human decision: {human_decision['decision']}")
+        
+        # Update checkpoint in DB
+        try:
+            checkpoint_store.update_checkpoint_decision(
+                checkpoint_id=checkpoint_id,
+                decision=human_decision["decision"],
+                reviewer_id=human_decision.get("reviewer_id", "unknown")
+            )
+        except Exception as e:
+            logger.error(f"Failed to update checkpoint decision: {e}")
+            # Continue anyway
+        
+        # Update review queue
+        try:
+            status = "APPROVED" if human_decision["decision"] == "ACCEPT" else "REJECTED"
+            checkpoint_store.update_review_status(checkpoint_id, status)
+        except Exception as e:
+            logger.error(f"Failed to update review queue status: {e}")
+            # Continue anyway
+        
+        # CRITICAL FIX: Don't use langgraph_app.ainvoke() - it hangs!
+        # Instead, manually execute remaining nodes based on decision
+        try:
+            if human_decision["decision"] == "ACCEPT":
+                # Execute remaining nodes: RECONCILE -> APPROVE -> POSTING -> NOTIFY -> COMPLETE
+                from invoice_agent.nodes.workflow_nodes_2 import (
+                    reconcile_node,
+                    approve_node,
+                    posting_node,
+                    notify_node,
+                    complete_node
+                )
+                
+                logger.info("[RESUME] Executing remaining workflow nodes after ACCEPT")
+                
+                state = reconcile_node(state)
+                state = approve_node(state)
+                state = posting_node(state)
+                state = notify_node(state)
+                state = complete_node(state)
+                
+                result = state
+            else:
+                # REJECT: Skip to COMPLETE with MANUAL_HANDOFF status
+                from invoice_agent.nodes.workflow_nodes_2 import complete_node
+                
+                logger.info("[RESUME] Executing COMPLETE node after REJECT")
+                state["status"] = "MANUAL_HANDOFF"
+                state["logs"].append("[REJECT] Invoice rejected by human reviewer - manual handling required")
+                result = complete_node(state)
+                
+        except Exception as e:
+            logger.error(f"Error during manual node execution: {e}", exc_info=True)
+            # Return error state instead of crashing
+            return {
+                "workflow_id": state.get("workflow_id", "unknown"),
+                "status": "ERROR",
+                "current_stage": state.get("current_stage", "UNKNOWN"),
+                "next_stage": None,
+                "error": str(e),
+                "logs": state.get("logs", []) + [f"[ERROR] Workflow resume failed: {e}"]
+            }
+        
+        logger.info(f"[OK] Workflow resumed - Final Status: {result['status']}")
+        
+        return {
+            "workflow_id": result["workflow_id"],
+            "status": result["status"],
+            "current_stage": result["current_stage"],
+            "next_stage": result.get("next_stage"),
+            "logs": result.get("logs", [])
+        }
+        
+    except Exception as e:
+        logger.error(f"Critical error in resume_workflow: {e}", exc_info=True)
+        raise
+    finally:
+        if checkpoint_store:
+            checkpoint_store.close()

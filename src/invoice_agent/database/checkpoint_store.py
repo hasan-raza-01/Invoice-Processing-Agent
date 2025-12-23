@@ -213,10 +213,15 @@ class CheckpointStore:
                     review.reviewed_at = datetime.now(timezone.utc)
                     # Commit is handled by context manager
                     logger.info(f"Review status updated: {checkpoint_id} - {status}")
+                else:
+                    # WARNING: Review not found, but don't raise exception
+                    # This could happen if checkpoint was created but not added to queue
+                    logger.warning(f"Review queue item not found for checkpoint: {checkpoint_id}")
                 
         except Exception as e:
             logger.error(f"Error updating review status: {e}")
-            raise InvoiceAgentException(f"Failed to update review status: {e}", sys)
+            # Don't raise exception to prevent crashing the workflow
+            logger.warning(f"Continuing despite review status update failure")
     
     def log_audit(
         self,

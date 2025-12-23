@@ -14,6 +14,8 @@ An intelligent invoice processing system built with **LangGraph**, featuring **H
 - 💾 **Checkpoint Persistence**: SQLite-based state storage with full audit logging
 - 🌐 **FastAPI Backend**: Async REST API for workflow management
 - 📊 **Streamlit Dashboard**: Interactive UI for human review
+- 🐳 **Docker Ready**: Containerized deployment with docker-compose
+- 🧪 **Comprehensive Testing**: Automated test suites for Docker containers
 
 ---
 
@@ -203,6 +205,115 @@ uvicorn invoice_agent.api.main:app --reload
 ```bash
 streamlit run src/invoice_agent/frontend/app.py
 ```
+
+---
+
+## 🧪 **Testing in Docker Containers**
+
+### **Quick Test - Verify Everything Works**
+
+```bash
+# 1. Ensure containers are running
+docker ps
+
+# 2. Run comprehensive test suite
+docker exec invoice_agent_api python /app/scripts/docker_test.py
+```
+
+### **Available Test Scripts**
+
+#### **1. Comprehensive Python Tests** (`scripts/docker_test.py`)
+
+Tests all aspects of the containerized application:
+- ✅ Database initialization and operations
+- ✅ Checkpoint store functionality
+- ✅ Workflow execution (perfect match & HITL)
+- ✅ Bigtool dynamic selection
+- ✅ MCP client operations
+
+**Usage:**
+```bash
+# Copy script to container (first time only)
+docker exec invoice_agent_api mkdir -p /app/scripts
+docker cp scripts/docker_test.py invoice_agent_api:/app/scripts/
+
+# Run tests
+docker exec invoice_agent_api python /app/scripts/docker_test.py
+```
+
+#### **2. Individual Component Tests**
+
+**Test API Health:**
+```bash
+docker exec invoice_agent_api curl http://localhost:8000/health
+```
+
+**Test Workflow Execution:**
+```bash
+docker exec invoice_agent_api python -c "import asyncio, json; from invoice_agent.agent.workflow_executor import start_workflow; import sys; f = open('/app/data/sample_invoices/invoice_001_perfect_match.json'); invoice = json.load(f); f.close(); result = asyncio.run(start_workflow(invoice)); print('Status:', result['status']); print('Workflow ID:', result['workflow_id'])"
+```
+
+**Test Database:**
+```bash
+docker exec invoice_agent_api python -c "from invoice_agent.database.models import init_db; init_db(); print('Database initialized successfully!')"
+```
+
+**Test Module Imports:**
+```bash
+docker exec invoice_agent_api python -c "from invoice_agent.api import main; from invoice_agent.agent import workflow_executor; from invoice_agent.database import models; from invoice_agent.bigtool import bigtool_picker; print('All modules imported successfully!')"
+```
+
+### **Test All Sample Invoices**
+
+```bash
+# Test from host machine
+curl -X POST http://localhost:8000/workflow/start \
+  -H "Content-Type: application/json" \
+  -d @data/sample_invoices/invoice_001_perfect_match.json
+
+curl -X POST http://localhost:8000/workflow/start \
+  -H "Content-Type: application/json" \
+  -d @data/sample_invoices/invoice_002_amount_mismatch.json
+```
+
+### **View Container Logs During Testing**
+
+```bash
+# Watch API logs
+docker logs -f invoice_agent_api
+
+# Watch UI logs
+docker logs -f invoice_agent_ui
+
+# View last 100 lines
+docker logs --tail=100 invoice_agent_api
+```
+
+### **Interactive Container Testing**
+
+```bash
+# Access container shell
+docker exec -it invoice_agent_api bash
+
+# Inside container, run any Python code or tests
+python /app/scripts/docker_test.py
+curl http://localhost:8000/health
+ls -la /app/data/
+
+# Exit
+exit
+```
+
+### **Expected Test Results**
+
+✅ **6+ tests should pass**, including:
+- Database initialization
+- Checkpoint operations
+- HITL checkpoint creation
+- Bigtool selection
+- MCP clients (COMMON & ATLAS)
+
+📝 **Test output provides detailed logs** for debugging if any test fails.
 
 ---
 

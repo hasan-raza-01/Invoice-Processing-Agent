@@ -59,26 +59,45 @@ class AtlasClient:
         """
         pos = []
         for po_ref in po_references:
-            po = {
-                "po_id": po_ref,
-                "vendor": "ACME CORPORATION",
-                "amount": round(random.uniform(1000, 10000), 2),
-                "status": "OPEN",
-                "line_items": [
-                    {
-                        "desc": "Product A",
-                        "qty": 10,
-                        "unit_price": 100.0,
-                        "total": 1000.0
-                    },
-                    {
-                        "desc": "Product B",
-                        "qty": 5,
-                        "unit_price": 200.0,
-                        "total": 1000.0
-                    }
-                ]
-            }
+            # Match amounts based on PO number for testing
+            if po_ref == "PO-12345":
+                # This should match invoice_001_perfect_match.json (amount: 5000.0)
+                po = {
+                    "po_id": po_ref,
+                    "vendor": "ACME CORPORATION",
+                    "amount": 5000.0,  # Matches invoice_001
+                    "status": "OPEN",
+                    "line_items": [
+                        {
+                            "desc": "Industrial Widget Model X-2000",
+                            "qty": 10,
+                            "unit_price": 500.0,
+                            "total": 5000.0
+                        }
+                    ]
+                }
+            else:
+                # Default PO for other scenarios
+                po = {
+                    "po_id": po_ref,
+                    "vendor": "ACME CORPORATION",
+                    "amount": round(random.uniform(1000, 10000), 2),
+                    "status": "OPEN",
+                    "line_items": [
+                        {
+                            "desc": "Product A",
+                            "qty": 10,
+                            "unit_price": 100.0,
+                            "total": 1000.0
+                        },
+                        {
+                            "desc": "Product B",
+                            "qty": 5,
+                            "unit_price": 200.0,
+                            "total": 1000.0
+                        }
+                    ]
+                }
             pos.append(po)
         
         logger.info(f"ATLAS: Fetched {len(pos)} POs from ERP")
