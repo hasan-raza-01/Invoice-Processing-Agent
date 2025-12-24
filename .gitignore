@@ -217,3 +217,4 @@ invoice_agent.db
 data/stored_invoices
 data/invoice_agent.db
 docker_test.sh
+scripts/test_all.py

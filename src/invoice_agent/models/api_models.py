@@ -57,5 +57,6 @@ class DecisionResponse(BaseModel):
     checkpoint_id: str = Field(..., description="Checkpoint ID")
     decision: str = Field(..., description="Decision made")
     resume_token: str = Field(..., description="Resume token")
-    next_stage: str = Field(..., description="Next stage")
+    next_stage: Optional[str] = Field(None, description="Next stage (None if completed)")
     message: str = Field(..., description="Response message")
+

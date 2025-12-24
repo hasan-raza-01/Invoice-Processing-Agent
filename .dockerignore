@@ -25,3 +25,4 @@ tests/
 *.log
 .DS_Store
 uv.lock
+scripts/test_all.py

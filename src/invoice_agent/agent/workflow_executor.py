@@ -185,7 +185,7 @@ async def resume_workflow(checkpoint_id: str, human_decision: Dict[str, Any]) ->
             "workflow_id": result["workflow_id"],
             "status": result["status"],
             "current_stage": result["current_stage"],
-            "next_stage": result.get("next_stage"),
+            "next_stage": result.get("next_stage") or "COMPLETED",  # Default to COMPLETED if None
             "logs": result.get("logs", [])
         }
         

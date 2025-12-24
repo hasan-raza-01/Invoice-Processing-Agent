@@ -215,11 +215,8 @@ streamlit run src/invoice_agent/frontend/app.py
 ### **Quick Test - Verify Everything Works**
 
 ```bash
-# 1. Ensure containers are running
+# Ensure containers are running
 docker ps
-
-# 2. Run comprehensive test suite
-docker exec invoice_agent_api python /app/scripts/docker_test.py
 ```
 
 ### **Available Test Scripts**
@@ -237,9 +234,12 @@ Tests all aspects of the containerized application:
 ```bash
 # Copy script to container (first time only)
 docker exec invoice_agent_api mkdir -p /app/scripts
-docker cp scripts/docker_test.py invoice_agent_api:/app/scripts/
+docker cp scripts/ invoice_agent_api:/app/
 
-# Run tests
+# Run demo test
+docker exec invoice_agent_api python /app/scripts/run_demo.py
+
+# Run comprehensive test suite
 docker exec invoice_agent_api python /app/scripts/docker_test.py
 ```
 
