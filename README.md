@@ -87,7 +87,7 @@ An intelligent invoice processing system built with **LangGraph**, featuring **H
 
 Watch the complete workflow in action:
 
-[▶️ Watch Demo Video](./resources/Invoice-processing_agent-demo-video.mp4)
+[▶️ Watch Demo Video](https://drive.google.com/file/d/1HAgOFNxMiT2HiBEC1MHsYKqAvEs1x3vM/view)
 
 ---
 ### **Technology Stack**
