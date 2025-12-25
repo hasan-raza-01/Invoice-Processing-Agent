@@ -79,7 +79,15 @@ An intelligent invoice processing system built with **LangGraph**, featuring **H
 ---
 
 ## Here’s a preview of the Human Review Dashboard:
-![UI Screenshot](./screenshots/Human-Review-Dashboard.png)
+![UI Screenshot](./resources/Human-Review-Dashboard.png)
+
+---
+
+## 🎥 **Demo Video**
+
+Watch the complete workflow in action:
+
+[▶️ Watch Demo Video](./resources/Invoice-processing_agent-demo-video.mp4)
 
 ---
 ### **Technology Stack**
