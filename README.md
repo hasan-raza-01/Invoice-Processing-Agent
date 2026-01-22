@@ -102,6 +102,14 @@ Watch the complete workflow in action:
 
 ---
 
+## 📊 Project Workflow
+
+![Project Workflow](./screenshots/workflow.png)
+
+*Complete end-to-end pipeline from data ingestion to deployment*
+
+---
+
 ## 📁 **Repository Structure**
 
 ```
